@@ -1,0 +1,151 @@
+Class - 1
+==============
+
+    -> What Is DevOps ? 
+
+        -> DevOps is a set of "PRACTICES" that works to "AUTOMATE" and "INTEGRATE"
+        the process between Software Development (Dev) and IT Operations(Ops) Teams.
+
+    -> Development(Dev) Team
+
+        -> To "Build Applications", we need roles like 
+
+            -> Software Architects 
+            -> Softwares Developers 
+            -> Softwares Testers 
+            -> etc 
+
+    -> IT Operations(Ops) Team
+
+        -> To "Build Infrastructure" & "Maintain Applications", we need roles like 
+
+            -> System Admin
+            -> Network Admin 
+            -> Cloud Admin 
+            -> etc 
+
+
+    -> DevOps Engineer 
+
+        -> DevOps Engineers will implement DevOps "PRACTICES" Using "TOOLS", 
+        so that organizations can Build, Test & Deploy (Delivery Line) 
+        Softwares More "FASTER" & "RELIABLE".
+
+
+    -> DevOps "PRACTICES"                               ==>            DevOps "TOOLS"
+
+        -> Version Control System (VCS)                 ==>            Git 
+
+            -> For Tracking Code 
+
+            -> Happens Inside Developer Laptop - Local To Individual Developer 
+
+        
+        -> Source Code Management (SCM)                 ==>            GitHub
+
+            -> For Storing Multiple Versions Of Code  
+
+            -> Happens Inside Organization - Central To All Developers 
+
+        
+        -> Containerization                             ==>            Docker
+
+            -> For Getting Acceleration i.e Making FASTER 
+
+        
+        -> Orchestration                                ==>            Kubernetes 
+
+            -> For Getting Reliability 
+
+            -> RELIABLE means running Applications Without Downtime (Run 24 X 7) 
+            i.e Production Environments need Reliability
+
+
+        -> CI / CD                                      ==>            Jenkins 
+
+            -> Continuous Integration & Continuous Deployment 
+
+            -> For Automating Repetitive Tasks / Works 
+
+
+    -> DevOps Prerequisites 
+
+        
+        -> Application / Software - Project 
+
+            -> SDLC - Software Development Life Cycle 
+
+                -> Requirement -> Design -> Code -> Build -> Test -> Release -> Deploy 
+
+
+        -> Servers (AWS & AZURE - Cloud Computing) 
+
+            -> Rather than Buying Physical Servers, 
+            We will be Renting Virtual Servers On 
+            Cloud Platforms Like AWS & AZURE for 
+            Cost Effectiveness.
+
+            -> Rent is 4 INR PER HOUR 
+
+
+        -> Understanding Of Command Line Interface - CLI 
+
+            -> We are used to working with Graphical User Interface - GUI 
+            i.e Using Screens, Menus & Options To perform some tasks On
+            Computers i.e Create Files / Folders, Install Applications,
+            Opening Applications etc 
+
+            -> Now as a DevOps Engineer, You need to do perform Tasks On 
+            Servers Using CLI i.e Create Files / Folders, Install Applications,
+            Opening Applications etc 
+
+
+
+    -> When We Start Building / Developing Project 
+
+        -> SDLC 
+
+            -> Software Development Life Cycle is a process followed by 
+            software development teams to design, develop and test high-quality software.
+
+            -> SDLC Consists Of Multiple Stages Such as 
+
+                -> Requirement -> Design -> Code -> Build -> Test -> Release -> Deploy 
+
+            -> NOTE: From DevOps Context 
+
+                -> Code -> Build -> Test -> Deploy (Concept Point Of View)
+
+                -> Build & Deploy (Implementation Point Of View)
+
+
+        -> Requirement 
+
+            -> Build LMS - Learning Management System 
+
+                -> Three Tier Application Architecture 
+
+                    -> One thing the "most visited websites" have in common is that they are dynamic websites.
+                    Their development typically involves server-side coding, client-side coding and 
+                    database technology.
+
+                -> Most Popular Applications
+                
+                    -> https://en.wikipedia.org/wiki/Programming_languages_used_in_most_popular_websites
+
+                -> NOTE: Even Our Application Learning Management System will also be having 
+                Three Tier Application Architecture 
+
+        -> Design 
+
+            -> https://www.sketchappsources.com/resources/source-image/learning-management-system.png
+
+            -> https://s3-alpha.figma.com/hub/file/5585016792/25da91fc-1cae-497a-baa6-c26b29134142-cover.png
+
+        -> Code 
+
+            -> Developers Will Use "Git" To Track Code and 
+            Eventually "Push Code" To "GitHub"
+
+                -> https://d2ds8yldqp7gxv.cloudfront.net/Blog+Explanatory+Images/How+to+use+github+1.webp
+

@@ -149,3 +149,142 @@ Class - 1
 
                 -> https://d2ds8yldqp7gxv.cloudfront.net/Blog+Explanatory+Images/How+to+use+github+1.webp
 
+
+Class - 2
+==============
+
+    -> LMS Project (Learning Management System)
+
+    -> Development Team 
+
+        -> Development Team Mainly Focuses On Building Applications 
+
+            -> Development Means Coding 
+
+    -> Version Control Systems (VCS)
+
+        -> Version control / Revision control / Source control
+        is a process that helps to "keep track of changes" made to 
+        files (computer programs, web site files, documents etc)
+
+        -> https://www.sirhow.com/uploads/2023/07/check-gpay-transaction-history-step-4.jpg
+
+        -> Advantage Of VCS is Revert Changes To Previous Working Versions, 
+        if there are issues in new version
+
+            -> https://notepad-plus-plus.org/downloads/
+
+            -> Transaction ID's == Versions == Commit ID's 
+
+    -> To Implement Version Control System, We need "Git" Software / Tool 
+
+        -> Git Helps in Tracking Code / Changes In Your Code 
+
+        -> Git Tracks Code in your Laptop
+
+        -> Git will generate commit id for every change we make 
+        (like every transaction we make in UPI)
+
+
+    -> All the transactions made will be stored in Server, Similarly we store 
+    all our commit id's in Source Code Management(SCM) like a server 
+
+        -> Mobile Phone -> Google Pay -> Bank Server (Transaction ID's)
+
+        -> Laptop -> Git -> GitHub (Commit ID's)
+
+    -> GitHub 
+
+        -> GitHub provides a platform to store code and it's versions 
+
+        -> GitHub Stores all versions of code in Centralized location (github.com)
+
+    
+    -> NOTE: Example of Real World Application 
+
+        -> https://notepad-plus-plus.org/downloads/ - Application
+
+        -> https://github.com/notepad-plus-plus/notepad-plus-plus - Application Code
+
+        -> https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors - History 
+
+        -> https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/ - Commits     
+
+
+    -> Repository 
+
+        -> A repository contains all of your "project's files" and each file's revision history. 
+        Developers can discuss and manage your project's work within the repository.
+
+        -> https://github.com/notepad-plus-plus/notepad-plus-plus
+
+        -> https://github.com/notepad-plus-plus/notepad-plus-plus/tags
+
+    -> JIRA (Proprietary)
+
+        -> Jira is a proprietary product developed by Atlassian that allows 
+        bug tracking, issue tracking and agile project management. 
+
+        -> https://images.ctfassets.net/xjcz23wx147q/2vuHCsAF3tUpzYykEb9GAX/11fb10694a339636aceb9f531f11e49f/Kanban-updated.png
+
+    
+    -> GitHub Projects & Issues (FREE)
+
+        -> GitHub Projects are a feature within GitHub designed for 
+            "planning and tracking work"
+
+        -> GitHub Issues is a built-in, lightweight issue-tracking system in 
+        every repository used for planning, discussing, and tracking work like 
+        bug reports, new features, and tasks.
+
+        -> NOTE: Within Project we have Issues 
+
+        -> https://everhour.com/blog/wp-content/uploads/2017/05/github-zenhub-1024x433.png
+
+    
+    -> Start LMS Project (Development - Developer)
+
+        -> Create GitHub Account - https://github.com/
+
+        -> Create Repository 
+
+        -> Assign Work To Developers - Projects & Issues 
+
+        -> Developers Will Start Coding - Versioning Starts 
+
+        -> Developers Will Update Code To GitHub Repository
+
+    
+    -> Start LMS Project (Development - Developer)
+
+        -> Create GitHub Account 
+            
+            -> https://github.com/
+
+        -> Create Repository 
+
+            -> https://github.com/ravi2krishna/login-2603.git
+
+        -> Assign Work To Developers - Projects & Issues 
+
+            -> https://github.com/users/ravi2krishna/projects/14/views/1
+
+            -> https://github.com/ravi2krishna/login-2603/issues 
+
+        -> Developers Will Start Coding - Versioning Starts 
+
+            -> Install Git Software In Laptop For Versioning
+
+                -> Open GitBash 
+
+                -> Setting Git Configuration 
+
+                    -> git config --global user.name "ravi2krishna"
+
+                    -> git config --global user.email "ravi2krishna@gmail.com"
+
+            -> Install Visual Studio Code (VS Code) To Write Code 
+
+            -> Start Coding For Issues / Features Assigned to them 
+
+        -> Developers Will Update Code To GitHub Repository

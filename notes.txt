@@ -288,3 +288,107 @@ Class - 2
             -> Start Coding For Issues / Features Assigned to them 
 
         -> Developers Will Update Code To GitHub Repository
+
+
+Class - 3
+==============
+
+    -> Implement Issue / Feature Assigned To Developer 
+
+        -> Start Coding 
+
+        -> Completed Coding 
+
+        -> Developer Will Raise PR (Pull Request) 
+
+        -> Owner Will Approve The PR (Pull Request) i.e Application Is On GitHub Repository 
+
+        -> Can Customers / Clients Access the Application from GitHub ? 
+
+            -> NO 
+
+        -> We need Servers To Host / To Deploy Applications,
+        So that Customers / Clients Access the Application anywhere from Internet.
+
+        -> Above Activity Requires "Operations" Related Knowledge 
+
+
+    -> Servers 
+
+        ->  A Server is a "computer system" that provides data or services 
+        to others computers, known as "clients" over a network.
+
+            -> https://upload.wikimedia.org/wikipedia/commons/c/c9/Client-server-model.svg
+
+        -> Laptop / Desktop can be used by only one person at a time.
+
+        -> Servers can be used by Multiple Persons (Clients) at a time 
+
+    
+    -> Physical Server 
+
+        -> Physical Server is hosted on Physical Datacenter / On-prem Datacenter 
+
+    -> Virtual Server / Cloud Server 
+
+        -> Virtual Server / Cloud Server is hosted on Virtual Datacenter / Cloud Datacenter 
+
+    -> NOTE: Any Type Of Server has Components i.e Physical / Virtual / Cloud 
+
+        -> CPU (processor) + RAM (memory) + HDD (Disk) + Network 
+
+        -> Operating System (Linux OS - Ubuntu)
+
+        -> Server Softwares 
+
+            -> Web Server: Hosts Web Pages / Web Applications Over Internet 
+
+                -> Examples: Apache Web Server, Nginx Web Server, IIS Server etc 
+
+            -> Database Server: Hosts Application Data & Transactions 
+
+                -> Examples: MySQL Server, Postgres Server, Oracle DB Server etc 
+
+            -> Email Server: Hosts Email Services, To Send and Receive Emails 
+
+                -> Examples: Postfix Server, SendMail, SendGrid etc 
+
+
+    -> Where To Get Servers From ?? 
+
+        -> Purchasing Servers is Costly (3-4 Lakhs INR), from Learning Perspective 
+        we cannot afford a server 
+
+        -> Rather than Purchasing Server, We want to "Rent Servers" 
+
+        -> Buying Bike == Lot Of Expenditure 
+        (Initial Cost 1 Lakh, Service Costs, Petrol Charges etc)            
+
+        -> Renting Bike == Less Expenditure 
+        (Initial Cost 1 Lakh, Service Costs, Petrol Charges etc) - NO 
+
+            -> Only Pay For Kilometers you have traveled (Pay As You Go)
+
+        -> Renting Server == Less Expenditure 
+
+            -> Pay As You Go Price Model 
+
+                -> 1 Server for 1 Hour 
+                -> 5 Server for 1 Hour 
+                -> 5 Server for 5 Hour 
+
+        -> Where Can We Rent Bikes ? 
+
+            -> Ola, Uber, Rapido etc 
+
+        -> Where Can We Rent Servers ? 
+
+            -> AWS, Azure, GCP etc 
+
+
+
+
+
+
+
+    

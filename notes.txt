@@ -386,9 +386,207 @@ Class - 3
             -> AWS, Azure, GCP etc 
 
 
+Class - 4
+==============
+
+    -> Cloud Computing 
+
+        -> Cloud computing is the "on-demand" delivery of "IT resources" 
+        like servers, storage, and software over the "internet" 
+        on a "pay-as-you-go" basis.
+
+        -> In Our Course Will Implement Servers On "AWS" & "AZURE" 
+
+        -> AWS Account Setup - LABS 
+        
+            Visit - https://aws.amazon.com/free
+
+        -> AZURE Account Setup - LABS
+            
+            Visit - https://azure.microsoft.com/en-us/free/
+
+        -> Following Details Required - Cloud Setup
+
+            -> Unique Email ID
+            -> Unique Mobile Number
+            -> Unique PAN CARD
+            -> Unique Debit / Credit Card
 
 
+    -> Server Setup On Azure Cloud 
 
+        -> Server == Azure Virtual Machine (VM)
 
+        -> Server will be part of Network 
+
+            Network == Azure Virtual Network (VNET)
+
+        -> Azure Virtual Machine will be part of Azure Virtual Network  
+
+        -> Firewall 
+
+           -> A firewall is a network security system that monitors and controls 
+           network traffic based on predetermined security rules (protocols)
+
+           -> SSH protocol: Secure Shell Used for remote login, command execution
+
+                -> Port: 22
+
+           -> HTTP protocol: Hypertext Transfer Protocol Used For data exchange on the World Wide Web
+
+                -> Port: 80 
+
+        -> Firewall == Azure Network Security Group (NSG)
 
     
+    -> To Create / Work With Servers On Azure 
+
+        -> VNET 
+        -> VM 
+        -> NSG 
+
+    -> How To Connect With Server ? 
+
+        -> SSH Client Software 
+
+            -> SSH Client Software helps you connect with remote linux server 
+
+        -> From Web 
+
+            -> https://ssheasy.com/
+
+        -> From Laptop / Desktop 
+
+            -> Install GitBash / Terminal / etc 
+
+            -> Open GitBash
+
+                -> ssh username@public-ip-address 
+
+                -> ssh ubuntu@public-ip-address
+
+                -> ssh ubuntu@20.120.246.25
+
+    -> NOTE: We are using Linux Servers, which has only CLI (Command Line Interface)
+
+    -> CLI - Command Line Interface
+
+        -> CLI is a powerful tool for interacting with servers 
+        through "text based commands" 
+
+        -> CLI is very helpful in "Automating Repetitive Tasks"
+
+
+    -> Requirement From Customer 
+
+        -> Create 100 Text files 
+        -> Assume you don't have any CLI knowledge 
+        -> Then we are left with GUI - Graphical User Interface 
+            -> 1 text file creation - 3 seconds 
+            -> 100 text file creation - 300 seconds (5 mins)
+            -> 100000 text file creation - 300000 seconds (5000 mins) 
+    
+    -> Resolving Requirement From Customer Using CLI 
+
+        -> touch file-{1..100}.txt
+
+    -> Hardware & System Softwares (OS) Commands 
+
+        -> CPU / Processor Info 
+
+            -> cat /proc/cpuinfo 
+
+        -> RAM Info 
+
+            -> free -m 
+
+        -> Disk Info
+
+            -> df -h 
+
+        -> Network Info 
+
+            -> ip address 
+
+    -> System Softwares (OS) Commands
+
+        -> uname 
+
+        -> cat /etc/os-release 
+
+    -> Checking Running Processes 
+
+        -> ps -ef 
+        
+        -> htop / top (Type q to quit on keyboard)
+
+
+    -> Web Server 
+
+        -> A web server is computer software [ Nginx HTTP Server ] 
+        and underlying hardware [ AWS Instance / AZURE VM ] 
+        that accepts requests via HTTP (port 80) 
+        to distribute web content.
+
+        -> NOTE: All Servers that host websites must have web server program.
+
+    -> Commands To Work With Web Application Deployment 
+
+        -> Check Internally 
+
+            -> Command To Check, Which Port is in use by which Service 
+
+                -> sudo ss -ntpl 
+
+                -> Web Servers run on Port 80 and we don't see port 80 with above command 
+
+        -> Check Externally     
+
+            -> Browse Public IP Address Of Linux Server Created 
+
+                -> This site can’t be reached, indicates No Web Server has been Installed 
+
+    -> Install Web Server Nginx 
+
+        -> sudo apt update -y 
+
+        -> sudo apt install nginx -y 
+
+        -> sudo ss -ntpl 
+
+        -> Browse Public IP Address
+
+    -> How To Host Our Application ?
+
+        -> For Web Servers, we have DocumentRoot i.e location 
+        where web pages will be loaded from /var/www/html 
+
+        -> ls /var/www/html
+
+        -> index page is called Landing Page Of Application 
+
+        -> cat /var/www/html/index.nginx-debian.html
+
+    -> Repository URL: https://github.com/ravi2krishna/login-2603.git
+
+    -> Clone Repository Using CLI 
+
+        -> sudo git clone <url> <destination> 
+
+        -> sudo git clone https://github.com/ravi2krishna/login-2603.git /var/www/html
+
+            -> fatal: destination path '/var/www/html' already exists and is not an empty directory.
+
+        -> not an empty directory, so let's make it empty 
+
+            -> sudo rm -rf /var/www/html
+
+            -> sudo git clone https://github.com/ravi2krishna/login-2603.git /var/www/html
+
+            -> ls /var/www/html
+
+                -> README.md  img_avatar2.png  index.html (success)
+
+            -> Browse Public IP Address
+
+    -> NOTE: Delete Server / VM Once Lab is Completed

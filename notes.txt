@@ -590,3 +590,168 @@ Class - 4
             -> Browse Public IP Address
 
     -> NOTE: Delete Server / VM Once Lab is Completed
+
+
+class - 5
+==========
+
+    -> Server Setup On AWS Cloud  
+
+        -> Server == AWS EC2 Instance (Instance)
+
+        -> Server will be part of Network 
+
+            Network == AWS Virtual Private Cloud (VPC)
+
+        -> AWS EC2 Instance will be part of AWS Virtual Private Cloud
+
+        -> Firewall 
+
+           -> A firewall is a network security system that monitors and controls 
+           network traffic based on predetermined security rules (protocols)
+
+           -> SSH protocol: Secure Shell Used for remote login, command execution
+
+                -> Port: 22
+
+           -> HTTP protocol: Hypertext Transfer Protocol Used For data exchange on the World Wide Web
+
+                -> Port: 80 
+
+        -> Firewall == AWS Security Group (SG)
+
+    
+    -> To Create / Work With Servers On AWS 
+
+        -> VPC 
+        -> EC2 
+        -> SG 
+
+    -> How To Connect With Server ? 
+
+        -> SSH Client Software 
+
+            -> SSH Client Software helps you connect with remote linux server 
+
+        -> From Web 
+
+            -> https://ssheasy.com/
+
+        -> From Laptop / Desktop 
+
+            -> Install GitBash / Terminal / etc 
+
+            -> Open GitBash
+
+                -> ssh -i identity_key username@public-ip-address 
+
+                -> ssh -i 2603.pem ubuntu@public-ip-address
+
+                -> ssh -i 2603.pem ubuntu@20.120.246.25
+
+                -> chmod 400 identity_key (Read Only Permissions)
+
+                -> chmod 400 2603.pem 
+
+
+    -> Commands To Work With Web Application Deployment 
+
+        -> Check Internally 
+
+            -> Command To Check, Which Port is in use by which Service 
+
+                -> sudo ss -ntpl 
+
+                -> Web Servers run on Port 80 and we don't see port 80 with above command 
+
+        -> Check Externally     
+
+            -> Browse Public IP Address Of Linux Server Created 
+
+                -> This site can’t be reached, indicates No Web Server has been Installed 
+
+    -> Install Web Server Nginx 
+
+        -> sudo apt update -y 
+
+        -> sudo apt install nginx -y 
+
+        -> sudo ss -ntpl 
+
+        -> Browse Public IP Address
+
+    -> How To Host Our Application ?
+
+        -> For Web Servers, we have DocumentRoot i.e location 
+        where web pages will be loaded from /var/www/html 
+
+        -> ls /var/www/html
+
+        -> index page is called Landing Page Of Application 
+
+        -> cat /var/www/html/index.nginx-debian.html
+
+    -> Repository URL: https://github.com/ravi2krishna/login-2603.git
+
+    -> Clone Repository Using CLI 
+
+        -> sudo git clone <url> <destination> 
+
+        -> sudo git clone https://github.com/ravi2krishna/login-2603.git /var/www/html
+
+            -> fatal: destination path '/var/www/html' already exists and is not an empty directory.
+
+        -> not an empty directory, so let's make it empty 
+
+            -> sudo rm -rf /var/www/html
+
+            -> sudo git clone https://github.com/ravi2krishna/login-2603.git /var/www/html
+
+            -> ls /var/www/html
+
+                -> README.md  img_avatar2.png  index.html (success)
+
+            -> Browse Public IP Address
+
+    -> NOTE: Delete Server / Instance Once Lab is Completed
+
+
+    -> vi editor(Visual Editor) is a text editor in linux (like notepad in win)
+
+    -> vi file_name 
+
+        -> i - insert mode
+        -> esc - command mode 
+        -> :w - write data (save like control + s)
+        -> :wq - write and quit 
+
+    -> Shell Scripting 
+
+        -> A shell script is a computer program, or text file, that contains 
+        a sequence of commands for a Unix-based operating system's shell 
+        (command-line interpreter) to execute automatically. 
+        It functions as a program to "automate repetitive tasks" that a user 
+        would otherwise have to type manually into the terminal one command at a time.              
+
+        -> Deployment Script 
+
+            -> https://raw.githubusercontent.com/ravi2krishna/login-2603/refs/heads/scripts/deploy.sh
+
+    -> To Download We have wget command 
+
+        -> wget <link> 
+
+        -> ls 
+
+        -> wget https://raw.githubusercontent.com/ravi2krishna/login-2603/refs/heads/scripts/deploy.sh    
+
+        -> ls 
+
+        -> sh deploy.sh    
+
+    
+    -> To Work With SSL Certificates 
+
+        -> https://certbot.eff.org/instructions?ws=nginx&os=snap    
+
+    

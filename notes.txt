@@ -1311,3 +1311,189 @@ class - 8
         -> Containers are Real Entities We run
 
         -> NOTE: To create a container, image is mandatory 
+
+
+class - 9
+==========
+
+    -> A container is an object for holding or transporting/shipping applications.
+
+            -> To Create Container, we use Docker Client (CLI) and make a request 
+
+            -> DevOps Engineer -> Makes Request For Creating Container Using Docker Client (CLI)
+
+                -> Docker Client (CLI) -> Sends Request To Docker Server (Daemon) 
+                    -> Daemon Connects To Docker Registry -> Fetch Docker Images to Server(compute) 
+                        -> Using Image Daemon Runs/Creates Containers
+
+    
+        -> The Daemon/Service is responsible for managing Docker objects 
+        such as images, containers, and networks. All the heavy lifting is done by daemon.
+        
+        -> The client sends commands to the daemon and receives output. 
+        
+        -> The registry stores Docker images and allows them to be shared among users and systems.
+
+        -> A Docker image is a lightweight, standalone, and executable package 
+        that includes everything needed to run the desired software application.
+
+        -> A container in Docker allows you to run an application with all the dependencies it needs. 
+        To create a container we need Docker Image.
+
+
+    -> Setup Docker 
+
+        -> AWS / AZURE
+
+            -> 4 GB RAM - 2 CPU's - 30 GB Storage 
+
+            -> NOTE: Charges Applicable i.e 4 INR Per Hour 
+
+            -> Make sure to add following ports part of your Firewall 
+            Security Group(AWS) or Network Security Group(Azure)
+
+                -> 22, 80, 32768-61000, 8080-9090
+
+                -> 32768-61000 -> Docker Pre Defined Range(mandatory)
+                -> 8080-9090   -> User Defined Range(Optional i.e Based On Requirements)
+                -> 3000-5000   -> User Defined Range(Optional i.e Based On Requirements)
+
+
+        -> Install Docker 
+
+            -> docker 
+            -> wget -O get-docker.sh https://get.docker.com && sh get-docker.sh
+            -> docker 
+
+        -> Check Docker information
+
+            -> docker info 
+            
+            -> NOTE: Permission issues as ubuntu user cannot work with docker daemon, 
+            fix by adding ubuntu user to docker group₹
+
+            -> sudo usermod -aG docker ubuntu
+            -> newgrp docker 
+
+            -> docker info 
+
+        -> Check Docker Images 
+
+            -> docker image ls 
+
+        -> Check Docker Containers  
+
+            -> docker container ls -a 
+        
+        -> Create Docker Container
+
+            -> docker container run --name name_of_container image_name
+
+            -> NOTE: hello-world docker image confirms installation status 
+
+            -> docker container run --name c1 hello-world
+
+
+    -> To Run Containers We Have Modes 
+
+        -> No Mode 
+
+            -> Containers will exit i.e Stopped
+
+            -> docker container run --name c1 hello-world
+
+                -> Name conflicts
+
+            -> docker container run --name ubuntu-container ubuntu
+
+            -> docker container ls -a
+
+            -> NOTE: Containers stopped in No Mode 
+
+
+        -> Interactive Mode / Foreground Mode (Development / Troubleshooting)
+
+            -> Containers will run interactively 
+
+            -> docker container run -it --name name_of_container image_name
+
+            -> docker container run -it --name ubc1 ubuntu
+
+            -> cat /etc/os-release
+
+            -> Verify By Opening One more Sessions For Docker Server 
+
+                -> docker container ls -a
+
+                -> Check the STATUS 
+
+            -> NOTE: Containers are "Lightweight" and "Efficient"
+
+                -> Run Following Command On Docker Server 
+
+                    -> ps -ef 
+
+                -> Run Following Command On Docker Container (ubc1)
+
+                    -> ps -ef 
+
+                    -> ssh 
+
+                    -> git 
+
+                    -> ss
+
+                -> NOTE: As we have Microservices, we need Micro Sized Environments
+                i.e Containers Using Images Which Has Only What is Required
+
+            -> NOTE: In Interactive Mode Containers Will stop, once we come out of the container
+            i.e it stays alive until you are connected.
+
+
+
+        -> Detached Mode / Background Mode (Production)
+
+            -> Containers will "ALWAYS" run in Background, 
+            unless you explicitly Stop 
+
+            -> docker container run -dt --name name_of_container image_name
+
+            -> docker container run -dt --name ubc2 ubuntu
+
+            -> docker container ls -a
+
+            -> docker container exec name_of_container command_to_execute
+
+            -> docker container exec ubc2 cat /etc/os-release
+
+            -> docker container exec ubc2 ps -ef
+
+            -> To Interact with container use below command 
+
+                -> docker container exec -it name_of_container bash 
+
+                -> docker container exec -it ubc2 bash 
+
+                -> exit 
+
+                -> docker container ls -a 
+
+                    -> NOTE: Container is still up and running, unlike Interactive Mode 
+
+    -> Container Management Commands 
+
+        -> Just Like Servers: Create / Start / Stop / Remove 
+
+        -> With Containers also it's Same: Create / Start / Stop / Remove 
+
+            -> docker container rm name_of_container 
+            -> docker container rm id_of_container 
+
+            -> docker container stop name_of_container 
+            -> docker container stop id_of_container 
+
+            -> docker container start name_of_container 
+            -> docker container start id_of_container
+             
+            -> docker container run -dt --name name_of_container image_name
+

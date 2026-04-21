@@ -1700,9 +1700,197 @@ class - 10
         -> Docker does not assign any IP address to containers using this driver.
 
 
+class - 11
+==========
+
+    -> Check Network Drivers Using 
+
+        -> docker network ls 
+
+        -> docker container ls -a
+
+    -> NOTE: By Default, containers will always run on "bridge" network
+
+        -> docker container run -dt --name crm nginx
+        -> docker container ls -a
+        -> docker container inspect crm
+        -> docker network ls (same id for bridge network)
+        -> docker network inspect bridge
+
+    -> NOTE: We cannot access crm container from internet (from customer Perspective)
+
+        -> Browse Public IP (This site can’t be reached -> Connection Refused)
+
+    -> Host Network
+
+        -> Allows the container to share the host's networking namespace directly i.e 
+        container does not get its own IP address. Instead, it uses the host's IP address.
+
+        -> docker network inspect host 
+                    vs 
+        -> docker network inspect bridge
+
+        -> Create Container Using Host Network
+
+            -> docker container run -dt --name lms --network=host nginx
+            -> docker container ls -a
+            -> docker container inspect lms
+                -> Verify Networks=host and IPAddress="" 
+                -> Browse Public IP  (Connection Works)
+            -> docker network inspect host 
+
+        -> NOTE: Port Conflicts: Because the container uses the host's ports, 
+        you cannot run two containers that use the same port.
+
+            -> let's create multiple containers using bridge network to see Port Conflicts nature
+
+                -> docker container run -dt --name c1 nginx
+                -> docker container run -dt --name c2 nginx
+                -> docker container run -dt --name c3 nginx
+
+                -> All the above three containers will be launched in bridge network
+
+                    -> docker container ls -a
+                    -> docker network inspect bridge
+
+            -> let's create multiple containers using host network to see Port Conflicts nature
+
+                -> docker container run -dt --name w1 --network=host nginx
+                -> docker container run -dt --name w2 --network=host nginx
+                -> docker container run -dt --name w3 --network=host nginx
+
+                -> All the above three containers will be launched in host network
+
+                    -> docker container ls -a
+                    -> NOTE: All three containers exited 
+        
+            -> Check Container Logs Using 
+
+                -> docker container logs name_of_container
+                -> docker container logs crm
+                -> docker container logs lms 
+                -> docker container logs c1
+                -> docker container logs c2
+                -> docker container logs c3
+                -> docker container logs w1
+                    -> nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+                -> docker container logs w2
+                    -> nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+                -> docker container logs w3
+                    -> nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+
+            -> NOTE: To overcome above issue, we use bridge network
+
+    
+    -> None Network Driver  
+
+        -> The "none"driver provides complete network isolation by 
+        disabling all networking for a container.
+
+        -> The container cannot reach external networks, 
+        and no external network can reach the container.
+
+        -> Loopback Only: allowing internal process communication but no external
+
+        -> Docker does not assign any IP address to containers using this driver.
+
+            -> Create Container Using None Network
+
+            -> docker container run -dt --name hrms --network=none nginx
+            -> docker container ls -a
+            -> docker container inspect hrms
+                -> Verify Networks=none and IPAddress="" 
+            -> docker network inspect none 
+
+            -> NOTE: The container cannot reach external networks
+
+                -> docker container ls -a
+                
+                -> docker container inspect crm
+                    -> Verify Networks=bridge
+                -> docker container inspect lms
+                    -> Verify Networks=host
+                -> docker container inspect hrms
+                    -> Verify Networks=none
+
+                -> docker container exec crm apt update -y 
+                -> docker container exec lms apt update -y 
+                -> docker container exec hrms apt update -y 
+
+            -> NOTE: This confirms we have no network access in none network mode
 
 
+    -> Bridge Network Driver (***)            
 
+        -> Bridge Network Driver is default network driver for containers. 
+        When a new container is run, it can be attached to this Bridge network.
 
+        -> Using bridge network we can run multiple containers at same time
+        that can reach external networks as well. 
+        To allow external access USe Port Publishing/Forwarding. 
 
+        -> Port Publishing: To make a container service accessible from outside the host, 
+        you must map a host port to a container port using the -p or --publish flag.
 
+            ->  This is the activity that makes a "port inside a container" 
+            accessible to "ports on the Docker host" for external access.
+
+            -> -P for ephemeral ports (predefined range 32768 to 61000)
+
+                -> docker container ls -a
+                -> docker container run -dt --name no_port_publish nginx
+                -> docker container ls -a
+                -> Browse public ip with port 32768 (site can’t be reached)
+                
+                -> docker container run -dt --name port_publish_one -P nginx
+                -> docker container ls -a
+                -> Browse public ip with port 32768 (now site can be reached)
+
+                -> docker container run -dt --name port_publish_two -P nginx
+                -> docker container ls -a
+                -> Browse public ip with port 32769 (now site can be reached)
+
+                -> docker container run -dt --name port_publish_three -P nginx
+                -> docker container ls -a
+                -> Browse public ip with port 32770 (now site can be reached)
+    
+
+                        
+            -> -p for user Defined ports (predefined range 8080-9090)
+
+                -> docker container run -dt --name name_of_container -p host_port:container_port nginx
+
+                -> Requirement is run on port 8085 & 8088 
+
+                    -> docker container rm -f crm lms c1 c2 c3 w1 w2 w3 hrms no_port_publish
+                    -> docker container ls -a
+                    
+                    -> docker container run -dt --name lms -p 8085:80 nginx   
+                    -> docker container ls -a
+                    -> Browse public ip with 8085 
+
+                    -> docker container run -dt --name crm -p 8088:80 nginx   
+                    -> docker container ls -a
+                    -> Browse public ip with 8088
+
+        -> NOTE: Earlier we used below command 
+
+            -> docker container run -dt --name sonarqube --restart=always -p 9000:9000 sonarqube
+
+            -> --restart=always means run the container when hosts stops and starts
+
+            -> docker container run -dt --name prod-app --restart=always -p 8080:80 nginx
+
+            -> docker container ls -a
+
+            -> Stop and Start Docker Server
+
+            -> SSH into Docker Server and verify below command
+
+            -> docker container ls -a
+
+            -> Docker Container Clean Up Script 
+
+                -> docker container rm -f $(docker container ls -aq)
+
+                -> docker container ls -a

@@ -1894,3 +1894,220 @@ class - 11
                 -> docker container rm -f $(docker container ls -aq)
 
                 -> docker container ls -a
+
+
+class - 12
+==========
+
+    -> Data Persistency in Containers 
+
+        -> Data Persistency
+
+            -> Persistent means Permanent Storage
+
+                -> Hard Disk 
+
+            -> Non-Persistent means Temporary Storage
+
+                -> RAM 
+
+    -> NOTE: By default Containers are "Non-Persistent" in nature.
+
+    -> This design makes containers lightweight, portable, and 
+    easy to scale or replace, which is ideal for "stateless" applications. 
+
+    -> Goal: Deploy Login Application 
+
+        -> https://github.com/ravi2krishna/login-2603.git
+
+        -> NOTE: Before Getting started, Remove all existing containers 
+
+            -> docker container rm -f $(docker container ls -aq)
+            
+            -> docker container ls -a
+
+            -> Browse Public IP: This site can’t be reached
+
+            -> docker container run -dt --name login-app -p 80:80 nginx   
+
+            -> docker container ls -a
+
+            -> Browse Public IP: This site can’t be reached
+
+            -> login-app container command gave only Nginx, But we need Login App 
+
+            -> docker container exec -it login-app bash 
+
+            -> ls /var/www/html
+
+                -> ls: cannot access '/var/www/html': No such file or directory
+
+                -> NOTE: Above directory is valid in Servers, but not in containers
+
+            -> Inside Containers Created With Nginx Image, directory root is 
+
+                -> ls /usr/share/nginx/html
+                
+                -> cat /usr/share/nginx/html/index.html
+
+            -> git clone https://github.com/ravi2krishna/login-2603.git /usr/share/nginx/html
+
+                -> bash: git: command not found
+
+            -> apt update -y 
+            -> apt install git -y 
+
+            -> git clone https://github.com/ravi2krishna/login-2603.git /usr/share/nginx/html
+
+                -> fatal: destination path '/usr/share/nginx/html' already exists and is not an empty directory.
+
+            -> ls /usr/share/nginx/html
+
+            -> rm -rf /usr/share/nginx/html/* 
+
+            -> ls /usr/share/nginx/html
+
+            -> git clone https://github.com/ravi2krishna/login-2603.git /usr/share/nginx/html
+
+            -> ls /usr/share/nginx/html
+
+        -> NOTE: Test By - Browse Public IP
+
+        -> Let's remove the container and test again by Browsing Public IP
+
+            -> exit
+            -> docker container rm -f login-app
+            -> docker container ls -a
+            -> Test By - Browse Public IP
+            
+        -> Create Login App Container Again 
+
+            -> docker container run -dt --name login-app -p 80:80 nginx   
+
+            -> docker container ls -a
+
+            -> Test By - Browse Public IP
+
+        -> NOTE: With above observation, we can say 
+        when we remove container all the data associated with container is lost. 
+        
+        -> NOTE: By default Containers are "Non-Persistent" (ephemeral) in nature.
+
+        -> NOTE: To Setup Login App, we need to repeat all the steps again. 
+
+        -> Now we want Persistency for containers
+
+        -> NOTE: To achieve Persistency with data inside container we use "Docker Volumes"
+
+        -> NOTE: Check below link 
+
+            -> https://drive.google.com/file/d/1eJa4LMsUz5HJplEm-X6m91Hr5XnIV-j8/view?usp=sharing
+
+    
+    -> Docker Volumes
+
+        -> Docker Volumes are a mechanism for "Persisting Data" inside containers 
+
+        -> NOTE: Check below link 
+
+            -> https://drive.google.com/file/d/1q8_TYPpd7Zg1w00vlz-LtY4ttJPjpAJm/view?usp=sharing
+
+        -> Goal: Achieve Data Persistency For Login App 
+
+            -> docker volume ls 
+            
+            -> docker container rm -f login-app
+            -> docker container ls -a
+
+            -> docker container run -dt --name login-app -p 80:80 -v login-volume:/usr/share/nginx/html nginx   
+        
+            -> NOTE: Observations made from above command 
+
+                - **`login-volume`**: This is the name of a Docker-managed volume. 
+                If it doesn't already exist, Docker will create it automatically.
+                
+                - **`/usr/share/nginx/html`**: This is the directory inside the container 
+                where the volume is mounted.
+
+                **Effect:**  
+                Any files placed in `login-volume` on the host 
+                (or within the volume if managed by Docker) will appear inside the 
+                container at `/usr/share/nginx/html`. 
+                Conversely, files inside that container directory will be stored in the volume.
+
+                **Purpose:**  
+                This setup is typically used to persist website files 
+                (like HTML, CSS, JavaScript) across container restarts, 
+                or to serve custom static content with nginx.
+
+                In summary, `-v login-volume:/usr/share/nginx/html` 
+                links the named volume `login-volume` to the container's web root directory, 
+                allowing persistent and shareable storage of website content.
+
+            -> docker container ls -a
+
+            -> docker volume ls 
+
+                -> This volume is on host 
+
+            -> docker volume inspect login-volume
+
+                -> "Mountpoint": "/var/lib/docker/volumes/login-volume/_data"
+
+                -> sudo ls /var/lib/docker/volumes/login-volume/_data
+
+                -> 50x.html  index.html
+
+            -> Let's Test Volumes, by removing container
+            
+                -> docker container rm -f login-app
+                -> docker container ls -a
+
+                -> docker volume ls 
+
+                -> sudo ls /var/lib/docker/volumes/login-volume/_data
+
+                -> NOTE: With above command we can say volumes helped in data Persistency
+
+        -> docker container run -dt --name login-app -p 80:80 -v login-volume:/usr/share/nginx/html nginx   
+
+        -> docker container ls -a
+
+        -> docker volume ls 
+
+        -> docker container exec -it login-app bash 
+
+        -> apt update -y 
+        -> apt install git -y 
+
+        -> rm -rf /usr/share/nginx/html/* 
+
+        -> git clone https://github.com/ravi2krishna/login-2603.git /usr/share/nginx/html
+
+        -> NOTE: Test By - Browse Public IP
+
+        -> exit
+
+        -> sudo ls /var/lib/docker/volumes/login-volume/_data
+
+    -> NOTE: Final Confirmation 
+
+        -> docker container rm -f login-app
+        -> docker container ls -a
+        -> docker volume ls 
+        -> sudo ls /var/lib/docker/volumes/login-volume/_data
+
+    -> docker container run -dt --name login-app -p 80:80 -v login-volume:/usr/share/nginx/html nginx   
+    -> docker container ls -a
+    -> NOTE: Test By - Browse Public IP
+
+    -> NOTE: Data sharing with containers using Volumes  
+
+        -> docker container run -dt --name login-app-dev -p 8080:80 -v login-volume:/usr/share/nginx/html nginx   
+        -> docker container ls -a
+        -> NOTE: Test By - Browse Public IP:8080
+
+        -> docker container run -dt --name login-app-qa -p 8081:80 -v login-volume:/usr/share/nginx/html nginx   
+        -> docker container ls -a
+        -> NOTE: Test By - Browse Public IP:8081
+

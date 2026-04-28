@@ -2373,3 +2373,209 @@ class - 13
     -> docker container run -dt --name login-app -p 8080:80 ravi2krishna/login-2603
     -> docker container ls -a
     -> Browse IP with port 8080
+
+
+class - 14
+==========
+
+    -> Docker tags
+
+        -> Docker tags are human-readable aliases used to version and organize images 
+        within a repository. 
+        
+        -> While an image's true identity is its unique ID (SHA256 hash), 
+        a tag provides a convenient way to refer to specific releases or variants.
+
+        -> The Default Tag: If you do not specify a tag when pulling or building an image, 
+        Docker automatically applies the :latest tag
+
+        -> Multiple Tags: A single image ID can have multiple tags. 
+        For example, the same image might be tagged as both v1.2.3 and latest.
+
+    
+        -> docker container run -dt --name login-app -p 8080:80 ravi2krishna/login-2603
+        -> docker image ls 
+
+            -> Browse IP with Port 8080
+
+        -> New Requirement For Login App
+
+            -> Student Login Form 
+
+            -> Trainer Login Form 
+
+            -> Admin Login Form
+
+        -> NOTE: For above Requirement, we can have three different tags 
+        in terms of Docker Images, we have same concept in GitHub too i.e GitHub Tags 
+
+        -> Create Tags in GitHub and for Docker Images Too 
+
+        -> GitHub Releases (Source Code)
+
+            -> https://github.com/ravi2krishna/login-2603/archive/refs/tags/1.1.tar.gz
+
+            -> https://github.com/ravi2krishna/login-2603/archive/refs/tags/2.1.tar.gz
+
+            -> https://github.com/ravi2krishna/login-2603/archive/refs/tags/3.1.tar.gz 
+
+        -> Download Releases
+
+            -> wget https://github.com/ravi2krishna/login-2603/archive/refs/tags/1.1.tar.gz 
+            -> wget https://github.com/ravi2krishna/login-2603/archive/refs/tags/2.1.tar.gz 
+            -> wget https://github.com/ravi2krishna/login-2603/archive/refs/tags/3.1.tar.gz 
+
+            -> ls 
+
+            -> Extract Files For Above 
+
+                -> tar xf 1.1.tar.gz
+                -> tar xf 2.1.tar.gz
+                -> tar xf 3.1.tar.gz
+
+                -> cd ~/login-2603-1.1
+                -> vi Dockerfile 
+                FROM nginx 
+                COPY . /usr/share/nginx/html
+                
+                # Syntax -> docker build -t ravi2krishna/login-2603:tag . 
+
+                -> docker build -t ravi2krishna/login-2603:student . 
+                
+                -> cd ~/login-2603-2.1
+                -> cp ~/login-2603-1.1/Dockerfile .
+                -> docker build -t ravi2krishna/login-2603:trainer . 
+
+                -> cd ~/login-2603-3.1
+                -> cp ~/login-2603-1.1/Dockerfile .
+                -> docker build -t ravi2krishna/login-2603:admin . 
+
+                -> docker image ls 
+
+            -> docker container run -dt --name student-login-app -p 8081:80 ravi2krishna/login-2603:student 
+            -> docker container run -dt --name trainer-login-app -p 8082:80 ravi2krishna/login-2603:trainer 
+            -> docker container run -dt --name admin-login-app -p 8083:80 ravi2krishna/login-2603:admin 
+
+            -> docker container ls -a
+
+            -> Browse IP with Port 8080
+            -> Browse IP with Port 8081
+            -> Browse IP with Port 8082
+            -> Browse IP with Port 8083
+
+            -> docker push ravi2krishna/login-2603
+            -> docker push ravi2krishna/login-2603:student
+            -> docker push ravi2krishna/login-2603:trainer
+            -> docker push ravi2krishna/login-2603:admin
+
+    
+    -> Project - 1 (LMS Application)
+
+        -> Above Project Took 2-3 Hours To Deploy 
+
+    -> Project - 2 (LMS Application) 
+
+        -> Implement Acceleration i.e "FASTER" Deployments Using "Containerization" Practice
+
+        -> Dockerize LMS Application 
+
+            -> You can Dockerize any three tier architecture application
+
+            -> LMS: Frontend + Backend + Database (Web Server - Nodejs API - Postgres DB)
+
+            -> Before Beginning With Project - 2, clean up existing containers 
+
+                -> docker container rm -f $(docker container ls -aq)
+                -> docker container ls -a
+
+            -> sudo ss -ntpl 
+
+                -> No Ports 80, 8080, 5432
+
+            -> Setup Postgres Database Using Docker 
+
+                -> docker container run -dt --name lms-db -e POSTGRES_PASSWORD=Login@123 postgres 
+                -> docker container ls -a
+    
+            -> Setup Nodejs Using Docker 
+
+                -> docker container run -dt --name t1 node:22
+                -> docker container ls -a
+                -> docker container exec t1 node -v 
+                -> docker container exec t1 npm -v 
+            
+            -> Steps To Build LMS Backend Image 
+
+                -> ls 
+                -> cd ~
+                -> git clone -b dev https://github.com/ravi2krishna/lms-v1.git
+                -> cd ~/lms-v1/api
+                -> ls 
+                -> vi .env 
+                    MODE=dev
+                    PORT=8080
+                    DATABASE_URL=postgresql://postgres:Login@123@localhost:5432/postgres
+
+                -> docker container inspect lms-db 
+                    
+                    -> Update IP of lms-db Container in .env file 
+                    MODE=dev
+                    PORT=8080
+                    DATABASE_URL=postgresql://postgres:Login@123@172.17.0.2:5432/postgres
+                
+                -> Remove Docker File (existing) 
+                    -> rm Dockerfile 
+                    -> ls Dockerfile
+
+                -> vi Dockerfile
+
+                    # Base Image
+                    FROM node:22
+
+                    # RUN - Runs Commands
+                    RUN mkdir /backend
+
+                    # WORKDIR - Set Path as Working Directory
+                    WORKDIR /backend
+
+                    # COPY - Copy Code
+                    COPY . /backend
+
+                    # RUN - Build Related Commands
+                    RUN npm install
+                    RUN npx prisma generate
+                    RUN npx prisma db push
+                    RUN npm run build
+
+                    # Start Application
+                    # RUN node build/index.js
+                    CMD ["node","build/index.js"]
+
+
+                -> docker build -t ravi2krishna/lms-be .
+
+                -> docker image ls
+
+                -> docker container run -dt --name lms-be -p 8080:8080 ravi2krishna/lms-be
+
+                -> docker container ls -a 
+
+                -> Verify Backend Status 
+
+                    -> Verify with Browser - http://public-ip:8080/api  
+
+                    -> NOTE: If you get below message, backend deployment is success   
+                    
+                        {"message":"success","mode":"dev"}
+
+                    -> docker push ravi2krishna/lms-be
+
+
+
+
+
+    -> Project - 2 (LMS Application)
+
+        -> Using Docker, Above Project Took 2-3 Hours To Deploy 
+
+            

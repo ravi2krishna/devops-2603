@@ -2571,11 +2571,115 @@ class - 14
                     -> docker push ravi2krishna/lms-be
 
 
+class - 15
+==========
 
+            -> Steps To Build LMS Frontend Image 
+
+            -> cd ~/lms-v1/webapp/
+
+            -> ls 
+
+            -> vi .env 
+
+                VITE_API_URL=http://public-ip:8080/api
+
+            -> Remove Docker File (existing) 
+                -> rm Dockerfile 
+                -> ls Dockerfile
+
+            -> vi Dockerfile
+
+                # Base Image
+                FROM node:22 AS build
+
+                # RUN - Runs Commands
+                RUN mkdir /frontend
+
+                # WORKDIR - Set Path as Working Directory
+                WORKDIR /frontend
+
+                # COPY - Copy Code
+                COPY . /frontend
+
+                # RUN - Build Related Commands
+                RUN npm install
+                RUN npm run build
+
+                # Deploy Application On NGINX
+                FROM nginx
+
+                # COPY
+                COPY --from=build /frontend/dist /usr/share/nginx/html
+
+            -> docker build -t ravi2krishna/lms-fe . 
+
+            -> docker container run -dt --name lms-fe -p 80:80 ravi2krishna/lms-fe 
+            -> docker container ls -a 
+
+            -> Verify Frontend With Browse Using - http://public-ip
+
+            -> docker push ravi2krishna/lms-fe
+
+        -> NOTE: In Future, if i want to run LMS Application
+
+            -> docker container run -dt --name lms-db -e POSTGRES_PASSWORD=Login@123 postgres 
+            -> docker container run -dt --name lms-be -p 8080:8080 ravi2krishna/lms-be
+            -> docker container run -dt --name lms-fe -p 80:80 ravi2krishna/lms-fe 
 
 
     -> Project - 2 (LMS Application)
 
-        -> Using Docker, Above Project Took 2-3 Hours To Deploy 
+        -> Without Docker, Above Project Took 2-3 Hours To Deploy 
 
+        -> Using Docker, Above Project Took 2-3 Mins To Deploy 
+
+
+
+
+    -> DevOps is a set of PRACTICES that works towards the 
+    "AUTOMATION" and "INTEGRATION" of the processes between 
+    Software Development (Dev) and IT (Ops) teams, 
+    so that organizations can "BUILD", "TEST" and "DEPLOY" 
+    softwares/applications "FASTER" and more "RELIABLE"        
+
+    -> Project - 2
+
+        -> Implement Acceleration i.e "FASTER" Deployments Using "Containerization" Practice
+
+    
+    -> Project - 3 
+
+        -> Implement RELIABILITY i.e ALWAYS RUNNING without DOWNTIME (24/7) 
+        can be Achieved using "Orchestration" Practice
+
+        -> NOTE: Once we terminated Docker Server, We need to setup Environment from
+        the scratch once again (Single Point Of Failure)
+
+        -> Single Point Of Failure
+
+            -> A Single Point of Failure (SPOF) is a component in a system—hardware, 
+            software, network, or personnel—that, if it fails, 
+            causes the entire system to stop working. 
             
+            -> SPOFs indicate a lack of redundancy, 
+            creating risks to availability and reliability. 
+            Common examples include a single server.
+
+        
+        -> High Availability (HA)
+
+            -> High Availability means designing IT systems 
+            to operate continuously with minimal or zero downtime.
+
+            -> To Achieve High Availability, we need to eliminate Single Point of Failure (SPOF)
+
+            -> High Availability in AWS/AZURE ensures that applications and services are 
+            continuously accessible and operational, even in the event of component failures.
+
+            -> High Availability is achieved by deploying resources across 
+            multiple availability zones (AZs), an availability zone is an physical datacenter.
+
+            -> To Achieve High Availability / Reliability, We need process called "Orchestration"
+
+        -> NOTE: To Implement Orchestration Practice, We use "Kubernetes"

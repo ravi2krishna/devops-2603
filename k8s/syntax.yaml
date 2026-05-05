@@ -1,0 +1,45 @@
+# Means Comment - This line will be ignored
+
+# Yaml files can have .yaml or .yml as extensions 
+
+# https://developer.ibm.com/tutorials/yaml-basics-and-usage-in-kubernetes/
+
+# Simple Key Value Pair
+key: value 
+name: ravi
+course: devops 
+
+# Lists: Multiple Items 
+courses:
+- devops
+- aws 
+- azure
+- python
+
+# Dictionaries: Set Of Key Values Pairs 
+trainer:
+  name: ravi
+  course: devops
+  location: hyderabad 
+
+# In k8s we would have complex structures like below 
+email: ravi2krishna # key: value 
+trainer_profile:
+  name: ravi 
+  courses:
+  - devops
+  - aws 
+  - azure
+  - python
+
+# Real World k8s file - pod.yaml 
+apiVersion: v1 # Key Value Pair 
+kind: Pod # Key Value Pair 
+metadata: # Dictionaries: Set Of Key Values Pairs  
+  name: nginx
+spec: # Dictionaries: Set Of Key Values Pairs
+  containers: # List 
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80

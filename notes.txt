@@ -2900,3 +2900,185 @@ class - 16
             -> kubectl delete pod nginx-pod 
 
             -> kubectl get pods 
+
+class - 17
+==========
+
+    -> Representing kubernetes (k8s) using CODE (YAML)
+
+    -> YAML 
+
+        -> YAML is a human-readable data serialization language. 
+        It is commonly used for "configuration files" (k8s) and in applications 
+        where data is being stored or transmitted.
+
+        -> YAML focuses on USER FRIENDLINESS & EASY READABILITY
+
+            -> https://thedeveloperstory.com/wp-content/uploads/2021/12/yaml-syntax-1024x512.png
+
+        -> NOTE: YAML is used to store information about different k8s object
+        pods, replicasets, deployments etc 
+
+        
+        -> YAML is k8s has
+
+            -> Simple Key Values Pairs 
+
+                -> The basic type of entry in a YAML file is of a key value pair. 
+                After the Key and colon there is a space and then the value.
+
+                    -> key: value 
+
+            -> Lists: Multiple Items  
+
+                -> Lists would have a number of items listed under the name of the list. 
+                The elements of the list would start with a -
+
+                    -> Fruits:
+                    - apple 
+                    - banana 
+                    - etc
+
+            -> Dictionaries: Set Of Key Values Pairs 
+
+                -> A more complex type of YAML file would be a Dictionary
+                It consists of key-value pairs.
+
+                -> banana:
+                    calories: 200
+                    fat: 0.5 
+
+
+            -> Combinations Of Above 
+
+                -> https://developer.ibm.com/tutorials/yaml-basics-and-usage-in-kubernetes/
+
+
+    -> NOTE: Every k8s object has 4 Top Level items in yaml script
+
+        -> apiVersion 
+        -> kind 
+        -> metadata 
+        -> spec 
+
+        -> Check these links 
+
+            -> https://kubernetes.io/docs/concepts/workloads/pods/
+
+            -> https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+
+            -> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+            -> Every k8s object has 4 Top Level items in yaml script
+
+        
+        -> Get YAML Definition for k8s Objects 
+
+            -> Approach 1 - Get To Official Site 
+
+                -> https://kubernetes.io/docs/concepts/workloads/pods/
+
+            -> Approach 2 - Get To k8s API Document 
+
+                -> https://kubernetes.io/docs/reference/
+
+                -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/
+
+                -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pod-v1-core
+
+            -> Approach 3 - Using Commands 
+
+                -> kubectl explain pod 
+                -> kubectl explain replicaset
+
+    -> Pod Creation Using YAML 
+
+        -> Create Pod Definition (pod.yaml)
+
+        -> kubectl get pods 
+
+        -> kubectl apply -f pod.yaml 
+
+        -> kubectl get pods 
+
+        -> kubectl describe pod nginx-pod
+
+        -> kubectl exec nginx-pod -- cat /usr/share/nginx/html/index.html 
+
+        -> kubectl delete pod nginx-pod 
+
+        -> kubectl get pods 
+
+        
+        -> NOTE: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pod-v1-core
+
+            -> Warning:
+                
+                -> It is recommended that users create Pods only through a Controller, and not directly. 
+
+            -> Pods are ephemeral in nature no guarantee of availability
+
+            -> Pods are not designed to run forever 
+
+            -> Pods do not heal or repair themselves 
+
+
+    -> Replicaset Object 
+
+        -> Replicaset Object, is often used to guarantee the "availability" of pods  
+
+        -> Replica Set manages pod lifecycle
+
+        -> Replicaset helps you achieve High Availability 
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#replicaset-v1-apps
+
+        -> kubectl get replicasets 
+
+        -> kubectl get pods 
+
+            -> nginx-2vzfn   1/1     Running   0          73s
+
+        -> kubectl apply -f replicaset.yaml
+
+        -> kubectl get replicasets 
+
+        -> kubectl get pods  
+
+        -> kubectl apply -f pod.yaml 
+
+        -> kubectl get pods 
+
+            nginx-pod     1/1     Running   0          6s
+        
+        -> kubectl describe pod nginx-pod
+
+            -> NOTE: There is no controlled by option 
+
+        -> kubectl describe pod nginx-2vzfn 
+
+            -> NOTE: We have Controlled By:  ReplicaSet/nginx
+
+        -> kubectl delete pod nginx-pod
+
+            -> Deleting pod not controlled by ReplicaSet 
+
+        -> kubectl get pods
+
+            -> nginx-2vzfn   1/1     Running   0          16m
+
+        -> kubectl delete pod nginx-2vzfn 
+       
+            -> Deleting pod controlled by ReplicaSet 
+
+        -> kubectl get pods
+
+            -> nginx-qs7rt   1/1     Running   0          5s
+
+        -> NOTE: This behavior confirms, Replicaset Object guarantees "availability" of pods  
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#replicaset-v1-apps
+
+        -> NOTE:
+
+            -> Warning: In many cases it is recommended to create a "Deployment" instead of ReplicaSet.

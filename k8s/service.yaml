@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-service
+spec:
+  ports:
+    # Accept traffic sent to port 80
+    - name: http
+      port: 80 # this is app running port 
+      nodePort: 30000 # this is node running port 
+  selector:
+    # Loadbalance traffic across Pods matching this label selector
+    app: nginx
+  type: NodePort

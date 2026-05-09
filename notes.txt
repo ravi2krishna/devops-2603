@@ -3243,3 +3243,141 @@ class - 18
                 -> Browse Application On http://18.119.104.54:30000/
 
     
+class - 19
+==========
+
+    -> NOTE: In Docker We have Volumes for data management, likewise we have 
+    Kubernetes Persistent Volume.
+
+    -> Persistent Volumes - PV 
+
+        -> A PersistentVolume (PV) is a piece of "storage" in the cluster
+
+        -> PersistentVolume represents storage independent of pods 
+
+            -> How volumes are independent of containers  
+
+        -> PersistentVolumeClaim - PVC
+
+            -> A PersistentVolumeClaim is a request for storage by a pod
+
+        -> Storage Class
+
+            -> A StorageClass in Kubernetes defines the type of storage to use 
+
+        -> NOTE: How everything is connected
+
+            -> Pod -> Persistent Volume Claim -> Persistent Volume -> Physical Storage(/mnt/data)
+
+    -> https://kubernetes.io/docs/tutorials/configuration/configure-persistent-volume-storage/
+
+    -> https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+
+    -> kubectl get pv 
+
+    -> kubectl describe pod task-pv-pod
+
+    -> kubectl exec task-pv-pod -- ls /usr/share/nginx/html 
+
+    -> kubectl describe pod task-pv-pod | grep Labels
+
+    -> kubectl label pod <pod-name> <key>=<value>
+
+    -> kubectl label pod task-pv-pod app=nginx
+
+    -> kubectl describe pod task-pv-pod | grep Labels
+
+    -> kubectl apply -f service.yaml
+
+    -> kubectl port-forward --address 0.0.0.0 service/nginx-service 30000:80
+
+    -> NOTE: How everything is connected in production
+        
+        -> Pod -> Persistent Volume Claim -> Persistent Volume -> Storage provisioned by admin using Storage classes 
+
+        -> https://aws.amazon.com/blogs/storage/persistent-storage-for-kubernetes/
+
+    
+
+    -> Namespace 
+
+        -> In Kubernetes, namespaces provide a mechanism for isolation
+
+        -> Like we have branches in git, we have namespaces in kubernetes 
+
+        -> https://miro.medium.com/v2/resize:fit:1200/1*1zWBdgIgpUjRReDzLHt5Dg.png
+
+        -> https://kubernetes.io/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace
+
+        -> kubectl get namespace
+
+        -> kubectl get ns 
+
+        -> kubectl get all
+
+        -> kubectl get pod
+        
+            -> No resources found in default namespace
+
+        -> kubectl get pod -n kube-node-lease
+            
+            -> No resources found in kube-node-lease namespace.
+
+        -> kubectl get pod -n kube-public
+        
+            -> No resources found in kube-public namespace.
+
+        -> kubectl get pod -n kube-system
+
+            NAME                               READY   STATUS    RESTARTS      AGE
+            coredns-7d764666f9-fxwgs           1/1     Running   3 (47h ago)   7d
+            etcd-minikube                      1/1     Running   3 (47h ago)   7d
+            kube-apiserver-minikube            1/1     Running   3 (47h ago)   7d
+            kube-controller-manager-minikube   1/1     Running   3 (47h ago)   7d
+            kube-proxy-j85k9                   1/1     Running   3 (47h ago)   7d
+            kube-scheduler-minikube            1/1     Running   3 (47h ago)   7d
+            storage-provisioner                1/1     Running   7 (48m ago)   7d
+
+        -> NOTE: All the k8s system related pods are isolated in kube-system namespace
+
+        -> Create dev namespace
+
+            -> kubectl apply -f dev-ns.yaml
+
+        -> kubectl get ns
+
+            NAME              STATUS   AGE
+            default           Active   7d
+            dev               Active   22s
+            kube-node-lease   Active   7d
+            kube-public       Active   7d
+            kube-system       Active   7d
+
+        -> kubectl get pods -n dev
+            
+            -> No resources found in dev namespace
+
+        -> NOTE: You can add multiple k8s objects in one file using yaml separator --- 
+
+        -> kubectl get all
+
+            NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+            service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   7d
+
+        -> kubectl apply -f dev-ns.yaml 
+
+            namespace/dev unchanged
+            deployment.apps/student created
+            service/nginx-service created
+
+        -> kubectl get all
+
+            NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+            service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   7d
+
+        -> kubectl get all -n dev 
+
+
+    -> Auto Scaling 
+
+        -> 

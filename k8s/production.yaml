@@ -1,0 +1,34 @@
+# Deployment Object 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student
+  template:
+    metadata:
+      labels:
+        app: student
+    spec:
+      containers:
+      - name: student-container
+        image: ravi2krishna/login-2603:student
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: student-service
+spec:
+  ports:
+    # Accept traffic sent to port 80
+    - name: http
+      port: 80 # this is app running port 
+  selector:
+    # Loadbalance traffic across Pods matching this label selector
+    app: student
+  type: LoadBalancer

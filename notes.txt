@@ -3623,14 +3623,13 @@ class - 23
             Such information might otherwise be put in a Pod specification or in a container 
             image. Using a Secret means that you don't need to include confidential data.
 
+            -> https://kubernetes.io/docs/concepts/configuration/secret/
 
         -> Backend API 
 
             -> https://github.com/ravi2krishna/lms-v1.git
 
-            -> git clone -b eks https://github.com/ravi2krishna/lms-v1.git
-
-            -> git clone -b k8s https://github.com/ravi2krishna/lms.git
+            -> git clone -b aks https://github.com/ravi2krishna/lms-v1.git
 
         -> ConfigMaps 
 
@@ -3640,3 +3639,18 @@ class - 23
             -> A ConfigMap allows you to decouple environment-specific configuration 
             from your container images, so that your applications are easily portable.
 
+            -> https://kubernetes.io/docs/concepts/configuration/configmap/
+
+
+class - 24
+==========
+
+    -> LMS Deployment on AKS 
+
+    -> git clone -b aks https://github.com/ravi2krishna/lms-v1.git
+
+
+    -> CI/CD Pipeline (Jenkins)
+    -> Terraform (Infrastructure As Code - IaC)
+    -> Ansible (Configuration Management)
+    -> Monitoring / SRE (Prometheus - AlertManager - Grafana)

@@ -138,6 +138,8 @@ Class - 1
 
         -> Design 
 
+            -> https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDQUoPWXFKaYqBQbC5tJwbUMYy1FxRXid56E44uloNmILhTjeYSM2lbVMJ&s=10
+
             -> https://www.sketchappsources.com/resources/source-image/learning-management-system.png
 
             -> https://s3-alpha.figma.com/hub/file/5585016792/25da91fc-1cae-497a-baa6-c26b29134142-cover.png
@@ -174,7 +176,7 @@ Class - 2
 
             -> https://notepad-plus-plus.org/downloads/
 
-            -> Transaction ID's == Versions == Commit ID's 
+            -> Transaction ID's == Commit ID's 
 
     -> To Implement Version Control System, We need "Git" Software / Tool 
 
@@ -182,12 +184,12 @@ Class - 2
 
         -> Git Tracks Code in your Laptop
 
-        -> Git will generate commit id for every change we make 
+        -> Git will Unique commit id for every change we make 
         (like every transaction we make in UPI)
 
 
-    -> All the transactions made will be stored in Server, Similarly we store 
-    all our commit id's in Source Code Management(SCM) like a server 
+    -> All the transactions made will be stored in Database Server, 
+    Similarly all our commit id's are stored in a Repository on Source Code Management(SCM) like a server 
 
         -> Mobile Phone -> Google Pay -> Bank Server (Transaction ID's)
 
@@ -210,6 +212,9 @@ Class - 2
 
         -> https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/ - Commits     
 
+    
+    -> NOTE: Now we need above capabilities for LMS Project
+
 
     -> Repository 
 
@@ -231,7 +236,7 @@ Class - 2
     -> GitHub Projects & Issues (FREE)
 
         -> GitHub Projects are a feature within GitHub designed for 
-            "planning and tracking work"
+        "planning and tracking work"
 
         -> GitHub Issues is a built-in, lightweight issue-tracking system in 
         every repository used for planning, discussing, and tracking work like 
@@ -1020,7 +1025,7 @@ class - 7
                 . /etc/os-release
                 sudo sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
                 sudo apt update
-                sudo apt install postgresql-18
+                sudo apt install postgresql-18 -y 
         
     -> sudo ss -ntpl
 
@@ -1046,12 +1051,12 @@ class - 7
 
                     node -v
                     npm -v
-                    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-                    sudo apt-get install -y nodejs
+                    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                    sudo apt-get install nodejs -y
                     node -v
                     npm -v
 
-    
+
     -> Steps to Build Backend API (use "ubuntu" user session)
 
             -> ls
@@ -2530,7 +2535,7 @@ class - 14
                 -> vi Dockerfile
 
                     # Base Image
-                    FROM node:22
+                    FROM node:20
 
                     # RUN - Runs Commands
                     RUN mkdir /backend
@@ -2591,7 +2596,7 @@ class - 15
             -> vi Dockerfile
 
                 # Base Image
-                FROM node:22 AS build
+                FROM node:20 AS build
 
                 # RUN - Runs Commands
                 RUN mkdir /frontend
